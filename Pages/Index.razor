@@ -1,0 +1,41 @@
+﻿@page "/"
+@inject IJSRuntime _jsRunTime
+
+
+<MudCarousel Class="mud-width-full" Style="height:400px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="true" AutoCycleTime="@CycleTime" TData="object">
+    <MudCarouselItem Transition="transition">
+        <div class="d-flex justify-center" style="height:100%">
+            <MudImage Src="/Images/Carousel1.jpeg" Class="img-fluid mx-auto-auto" ObjectFit="@ObjectFit.Fill" Style="@(IsMobile? "width:100%;": "width:40%;")" />
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="transition">
+        <div class="d-flex justify-center" style="height:100%">
+            <MudImage Src="/Images/Carousel2.jpg" Class="img-fluid mx-auto-auto" ObjectFit="@ObjectFit.Fill" Style="@(IsMobile? "width:100%;": "width:40%;")" />
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="transition">
+        <div class="d-flex justify-center" style="height:100%">
+            <MudImage Src="/Images/Carousel3.jpg" Class="img-fluid mx-auto-auto" ObjectFit="@ObjectFit.Fill" Style="@(IsMobile? "width:100%;": "width:40%;")" />
+        </div>
+    </MudCarouselItem>
+</MudCarousel>
+<br />
+
+<a href="https://prismluxe.square.site" target="_blank">
+    <input class="btn btn-dark btn-lg" type="button" value="Book with me!" />
+</a>
+@code{
+    private bool arrows = true;
+    private bool bullets = false;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+    private Transition transition = Transition.Slide;
+    private TimeSpan CycleTime = new TimeSpan(00,00,03);
+
+    private bool IsMobile { get; set; } = true;
+    protected override async Task OnInitializedAsync()
+    {
+        IsMobile = await _jsRunTime.InvokeAsync<bool>("isDevice");
+    }
+
+}

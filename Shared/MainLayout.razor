@@ -1,0 +1,35 @@
+﻿@inherits LayoutComponentBase
+@inject IJSRuntime _jsRunTime
+
+<div class="page">
+    <div style="border:1px solid black; background-image: linear-gradient(0deg, white 100%, white 100%);" class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="container-fluid w-100 m-0 p-0">
+            @if(IsMobile)
+            {
+                <img src="/Images/PrismLuxeLogo.jpeg" class="img-fluid w-100 p-0 m-0" style="height:300px; object-fit:cover; object-position:center">
+            }
+            else
+            {
+                <img src="/Images/PrismLuxeLogoStretch.png" class="img-fluid w-100 p-0 m-0" style="height:300px; object-fit:cover; object-position:center">
+            }
+        </div>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+<MudThemeProvider/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+@code{
+    private bool IsMobile { get; set; } = true;
+    protected override async Task OnInitializedAsync()
+    {
+        IsMobile = await _jsRunTime.InvokeAsync<bool>("isDevice");
+    }
+}
