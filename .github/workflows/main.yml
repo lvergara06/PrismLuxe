@@ -13,20 +13,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Publish app
+    - name: Publish application
       run: dotnet publish -c Release
-      # You can use cd before if your project is in a subfolder
+    
+        
+    # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
+    - name: Add .nojekyll file
+      run: touch ${{ env.PUBLISH_DIR }}/.nojekyll
 
-    - name: Rewrite base href
-      uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
-      with:
-        html_path: ${{ env.PUBLISH_DIR }}/index.html
-        base_href: /PrismLuxe/
-
-    - name: GitHub Pages
+    - name: Commit to GitHub pages Repo
       if: success()
       uses: crazy-max/ghaction-github-pages@v1.5.1
       with:
+       #fqdn: www.eptx-al-anon.com
         target_branch: gh-pages
         build_dir: ${{ env.PUBLISH_DIR }}
       env:
