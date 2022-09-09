@@ -12,10 +12,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    
+    # sets up .NET Core SDK 3.1
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0
 
     - name: Publish application
-      run: dotnet publish -c Release
-    
+      run: dotnet publish -c Release -o release --nologo
+      
+   #changes the base-tag in index.html from '/' to 'PrismLuxe' to match GitHub Pages repository subdirectory
+    - name: Change base-tag in index.html from / to PrismLuxe
+      run: sed -i 's/<base href="\/" \/>/<base href="\/PrismLuxe\/" \/>/g' release/wwwroot/index.html
         
     # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
     - name: Add .nojekyll file
