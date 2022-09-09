@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+/.vs/PrismLuxe/v16/Server/sqlite3
+/.vs/lvergara06
+/PrismLuxe/obj
+/PrismLuxe/bin/Debug/netcoreapp3.0
