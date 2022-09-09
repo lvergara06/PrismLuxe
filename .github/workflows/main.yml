@@ -14,13 +14,13 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Publish application
-      run: dotnet publish -c Release -o release --nologo
+      run: dotnet publish -c Release
       
-   #changes the base-tag in index.html from '/' to 'PrismLuxe' to match GitHub Pages repository subdirectory
-    - name: Change base-tag in index.html from / to PrismLuxe
-      run: sed -i 's/<base href="\/" \/>/<base href="\/PrismLuxe\/" \/>/g' release/wwwroot/index.html
-        
-    # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
+  # changes the base-tag in index.html from '/' to 'BlazorGitHubPagesDemo' to match GitHub Pages repository subdirectory
+    - name: Change base-tag in index.html from / to BlazorGitHubPagesDemo
+      run: sed -i 's/<base href="\/" \/>/<base href="\/BlazorGitHubPagesDemo\/" \/>/g' release/wwwroot/index.html
+      
+  # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
     - name: Add .nojekyll file
       run: touch ${{ env.PUBLISH_DIR }}/.nojekyll
 
@@ -28,7 +28,7 @@ jobs:
       if: success()
       uses: crazy-max/ghaction-github-pages@v1.5.1
       with:
-       #fqdn: www.eptx-al-anon.com
+        #fqdn: www.eptx-al-anon.com
         target_branch: gh-pages
         build_dir: ${{ env.PUBLISH_DIR }}
       env:
